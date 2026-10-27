@@ -1,0 +1,570 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#050507">
+<title>충전기 납치 사건 🚨</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+:root {
+  --pink: #ff69c9;
+  --blue: #72e7ff;
+  --yellow: #fff36b;
+  --white: #f8f7ff;
+  --bg: #050507;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  width: 100%;
+  min-height: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding:
+    max(18px, env(safe-area-inset-top))
+    14px
+    max(22px, env(safe-area-inset-bottom));
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'Jua', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .2;
+  background-image: radial-gradient(var(--blue) 1px, transparent 1px);
+  background-size: 25px 25px;
+}
+
+.app {
+  width: 100%;
+  max-width: 390px;
+  margin: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  color: var(--blue);
+  font-size: 12px;
+  margin-bottom: 13px;
+  letter-spacing: .5px;
+}
+
+#level {
+  text-align: right;
+}
+
+.card {
+  width: 100%;
+  border: 2px solid var(--pink);
+  border-radius: 14px;
+  padding: 24px 17px;
+  text-align: center;
+  background: #0c0b12;
+  box-shadow:
+    0 0 20px #ff69c926,
+    inset 0 0 20px #72e7ff08;
+}
+
+.tag {
+  display: inline-block;
+  max-width: 100%;
+  color: #09090b;
+  background: var(--yellow);
+  padding: 7px 11px;
+  font-size: 12px;
+  transform: rotate(-2deg);
+  margin-bottom: 19px;
+  border-radius: 3px;
+}
+
+h1 {
+  font-size: clamp(26px, 7.4vw, 32px);
+  line-height: 1.45;
+  margin: 0 0 14px;
+  word-break: keep-all;
+}
+
+.pink { color: var(--pink); }
+.blue { color: var(--blue); }
+.yellow { color: var(--yellow); }
+
+.face {
+  font-size: clamp(62px, 18vw, 76px);
+  line-height: 1.4;
+  margin: 9px 0;
+  display: inline-block;
+  animation: wobble 2s infinite ease-in-out;
+  filter: drop-shadow(0 0 12px #ff69c944);
+}
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(-5deg) scale(1); }
+  50% { transform: rotate(5deg) scale(1.06); }
+}
+
+.sub {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #c9c7d8;
+  word-break: keep-all;
+  margin: 10px 0;
+}
+
+.buttons {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  margin-top: 22px;
+  align-items: stretch;
+}
+
+button {
+  font-family: inherit;
+  border: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.choice {
+  flex: 1;
+  min-width: 0;
+  min-height: 58px;
+  padding: 10px 4px;
+  font-size: 21px;
+  border-radius: 8px;
+  border: 2px solid white;
+  overflow-wrap: anywhere;
+  transition:
+    flex .35s ease,
+    transform .2s ease,
+    font-size .25s ease;
+}
+
+#yes {
+  color: #111;
+  background: var(--pink);
+  border-color: #ffb2e5;
+  box-shadow: 0 4px 0 #a72d7d;
+}
+
+#no {
+  color: #fff;
+  background: #242330;
+  border-color: #54516a;
+  box-shadow: 0 4px 0 #111;
+}
+
+.choice:active {
+  transform: scale(.97);
+}
+
+.reward {
+  margin-top: 22px;
+  border: 1px dashed var(--blue);
+  padding: 12px 8px;
+  border-radius: 9px;
+  color: var(--blue);
+  line-height: 1.8;
+  font-size: 14px;
+  word-break: keep-all;
+}
+
+.progress {
+  margin-top: 22px;
+  text-align: left;
+  color: #aaa8bd;
+  font-size: 12px;
+}
+
+.bar {
+  height: 9px;
+  border: 1px solid #55516a;
+  margin-top: 8px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+#fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--pink), var(--blue));
+  transition: width .4s;
+}
+
+#reaction {
+  min-height: 54px;
+  margin-top: 16px;
+  color: var(--yellow);
+  font-size: 20px;
+  line-height: 1.6;
+  word-break: keep-all;
+}
+
+.foot {
+  color: #777488;
+  font-size: 11px;
+  text-align: center;
+  line-height: 1.6;
+  margin-top: 16px;
+}
+
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
+
+.final-card {
+  border-color: var(--blue);
+  box-shadow: 0 0 25px #72e7ff20;
+}
+
+.big {
+  font-size: clamp(29px, 8vw, 36px);
+  line-height: 1.5;
+  margin: 10px 0;
+  word-break: keep-all;
+}
+
+.pay {
+  display: block;
+  width: 100%;
+  min-height: 54px;
+  padding: 14px 8px;
+  margin-top: 20px;
+  border-radius: 10px;
+  background: var(--yellow);
+  color: #111;
+  font-size: 18px;
+  box-shadow: 0 4px 0 #9c8e18;
+}
+
+.small-note {
+  font-size: 12px;
+  color: #aaa8bd;
+  margin-top: 15px;
+  line-height: 1.8;
+  word-break: keep-all;
+}
+
+.again {
+  width: 100%;
+  min-height: 50px;
+  background: #22212d;
+  border: 1px solid #777488;
+  border-radius: 10px;
+  color: white;
+  padding: 13px 8px;
+  margin-top: 16px;
+  font-size: 16px;
+}
+
+.confetti {
+  position: fixed;
+  z-index: 5;
+  pointer-events: none;
+  animation: fall 2.8s linear forwards;
+  font-size: 24px;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(700deg);
+    opacity: 0;
+  }
+}
+
+/* 아이폰의 작은 화면 및 확대 글자 대응 */
+@media (max-width: 380px) {
+  body {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .card {
+    padding: 21px 13px;
+  }
+
+  .buttons {
+    gap: 8px;
+  }
+
+  .choice {
+    font-size: 19px;
+  }
+
+  .reward {
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .face {
+    animation: none;
+  }
+
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+  <div class="top">
+    <span>◈ YUNA'S PRISON ◈</span>
+    <span id="level">BOSS STAGE 01</span>
+  </div>
+
+  <!-- 첫 화면 -->
+  <section id="start" class="screen active">
+    <div class="card">
+
+      <div class="tag">🚨 긴급 속보 · 온지 물건 실종</div>
+
+      <h1>
+        지금 너의<br>
+        <span class="pink">충전기</span>와
+        <span class="blue">헤어롤</span>은<br>
+        납치됐습니다.
+      </h1>
+
+      <div class="face">😈🔌</div>
+
+      <p class="sub">
+        범인은 바로 나.<br>
+        <span class="yellow">이윤아</span>가 인질을 확보했다.<br>
+        너는 이것들을 구할 것인가?
+      </p>
+
+      <div class="buttons">
+        <button class="choice" id="yes" onclick="rescue()">
+          예 😎
+        </button>
+        <button class="choice" id="no" onclick="refuse()">
+          아니요 🙄
+        </button>
+      </div>
+
+      <div class="reward">
+        💸 구출 성공 시 이윤아에게<br>
+        <span class="yellow">현금 100만원을 "즉시" 지급한다.</span><br>
+        <span style="font-size:11px;color:#aaa8bd">
+          ※ 지급 방식: 카카오페이 (강제)
+        </span>
+      </div>
+
+      <div class="progress">
+        온지 인내심 측정기
+        <div class="bar">
+          <div id="fill"></div>
+        </div>
+      </div>
+
+      <div id="reaction">
+        선택해라. 이건 협상이 아니다.
+      </div>
+
+    </div>
+    <div class="foot">
+      © 김지온 시험 끝 축하 - 이제 오픽 시작
+    </div>
+  </section>
+
+  <!-- 성공 화면 -->
+  <section id="success" class="screen">
+    <div class="card final-card">
+
+      <div class="tag">🎉 MISSION CLEAR 🎉</div>
+
+      <div class="face">🥳💖🤑</div>
+
+      <div class="big">
+        <span class="pink">축하합니다!!!</span><br>
+        당신은 드디어<br>
+        <span class="blue">정신을 차렸습니다.</span>
+      </div>
+
+      <p class="sub">
+        충전기와 헤어롤 구출 완료!<br>
+        이제 마지막 절차만 남았습니다.
+      </p>
+
+      <div class="reward">
+        💌 수취인: 이윤아<br>
+        💰 송금 금액: 1,000,000원<br>
+        📱 송금 수단: 카카오페이
+      </div>
+
+      <button class="pay" onclick="fakePay()">
+        🟡 카카오페이로 입금하기
+      </button>
+
+      <div class="small-note" id="payMessage">
+        버튼을 누르면 당신의 통장과<br>
+        우정이 동시에 시험받습니다.
+      </div>
+
+      <button class="again" onclick="restart()">
+        🔁 처음부터 다시 플레이
+      </button>
+
+    </div>
+  </section>
+
+</div>
+
+<script>
+let noCount = 0;
+
+function refuse() {
+  noCount++;
+
+  const yes = document.getElementById('yes');
+  const no = document.getElementById('no');
+  const reaction = document.getElementById('reaction');
+  const fill = document.getElementById('fill');
+  const level = document.getElementById('level');
+
+  if (noCount === 1) {
+    reaction.innerHTML =
+      "줴줴이야~~~~ 😏💅<br>" +
+      "<span class='pink'>그 선택을 후회하게 될 거야.</span>";
+
+    yes.style.flex = '1.5';
+    no.style.flex = '0.75';
+    fill.style.width = '33%';
+    level.textContent = 'BOSS STAGE 02';
+
+  } else if (noCount === 2) {
+    reaction.innerHTML =
+      "티~~~~~~~~원 🤪🫵<br>" +
+      "<span class='blue'>아직도 상황 파악이 안 되니?</span>";
+
+    yes.style.flex = '2.4';
+    no.style.flex = '0.55';
+    fill.style.width = '66%';
+    level.textContent = 'BOSS STAGE 03';
+
+  } else if (noCount === 3) {
+    reaction.innerHTML =
+      "당신의.... 것들은 사망하기 직전...... 😭<br>" +
+      "<span class='pink'>불쌍해...... 진짜로......</span>";
+
+    yes.style.flex = '4.5';
+    no.style.flex = '0.35';
+    yes.style.fontSize = '24px';
+    fill.style.width = '100%';
+    level.textContent = 'FINAL CHANCE';
+    no.textContent = 'ㄴㄴ';
+    yes.textContent = '구출한다!!! 😭';
+
+  } else {
+    reaction.innerHTML =
+      "아직도 안 눌러??? 이 정도면 너도 공범이야.";
+
+    yes.style.flex = '5';
+    no.style.flex = '0.3';
+  }
+}
+
+function rescue() {
+  document.getElementById('start').classList.remove('active');
+  document.getElementById('success').classList.add('active');
+  document.getElementById('level').textContent = 'MISSION CLEAR';
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  const symbols = ['💖', '💸', '✨', '🤑', '🎉', '🔌', '😭'];
+
+  for (let i = 0; i < 45; i++) {
+    setTimeout(() => {
+      const item = document.createElement('div');
+      item.className = 'confetti';
+      item.textContent =
+        symbols[Math.floor(Math.random() * symbols.length)];
+
+      item.style.left = Math.random() * 100 + 'vw';
+      item.style.top = '-30px';
+      item.style.animationDuration = (2 + Math.random() * 2) + 's';
+
+      document.body.appendChild(item);
+      setTimeout(() => item.remove(), 4500);
+    }, i * 35);
+  }
+}
+
+function fakePay() {
+  document.getElementById('payMessage').innerHTML =
+    "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ<br>" +
+    "재능낭비<br>" +
+    "아 지온아 보고싶다<br>" +
+    "<span style='color:#ff69c9'>" +
+    "놀아난 것을 축하합니다.</span>";
+}
+
+function restart() {
+  noCount = 0;
+
+  document.getElementById('success').classList.remove('active');
+  document.getElementById('start').classList.add('active');
+
+  const yes = document.getElementById('yes');
+  const no = document.getElementById('no');
+
+  yes.style.flex = '1';
+  no.style.flex = '1';
+  yes.style.fontSize = '';
+  yes.textContent = '예 😎';
+  no.textContent = '아니요 🙄';
+
+  document.getElementById('reaction').textContent =
+    '선택해라. 이건 협상이 아니다.';
+
+  document.getElementById('fill').style.width = '0%';
+  document.getElementById('level').textContent = 'BOSS STAGE 01';
+  document.getElementById('payMessage').innerHTML =
+    '버튼을 누르면 당신의 통장과<br>' +
+    '윤아의 우정이 동시에 시험받습니다.';
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
